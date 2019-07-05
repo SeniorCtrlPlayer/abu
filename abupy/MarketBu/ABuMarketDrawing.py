@@ -17,6 +17,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
+# add by SeniorCtrlPlayer
+from matplotlib.dates import date2num
+
 from ..CoreBu import ABuEnv
 from ..MarketBu import ABuSymbolPd
 from ..UtilBu import ABuDateUtil
@@ -265,7 +268,8 @@ def _do_plot_candle(date, p_open, high, low, close, volume, view_index, symbol, 
         # 端线图绘制
         qutotes = []
         for index, (d, o, c, l, h) in enumerate(zip(date, p_open, close, low, high)):
-            d = index if minute else mpf.date2num(d)
+            # alter by SeniorCtrlPlayer
+            d = index if minute else date2num(d)
             val = (d, o, c, l, h)
             qutotes.append(val)
         # plot_day_summary_oclh接口，与mpf.candlestick_ochl不同，即数据顺序为开收低高
@@ -274,7 +278,8 @@ def _do_plot_candle(date, p_open, high, low, close, volume, view_index, symbol, 
         # k线图绘制
         qutotes = []
         for index, (d, o, c, h, l) in enumerate(zip(date, p_open, close, high, low)):
-            d = index if minute else mpf.date2num(d)
+            # alter by SeniorCtrlPlayer
+            d = index if minute else date2num(d)
             val = (d, o, c, h, l)
             qutotes.append(val)
         # mpf.candlestick_ochl即数据顺序为开收高低
